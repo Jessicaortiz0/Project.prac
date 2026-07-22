@@ -1,0 +1,42 @@
+<section class="panel" aria-labelledby="titulo-lista">
+  <div class="cabecera-lista">
+    <div>
+      <h2 id="titulo-lista">Lista de estudiantes</h2>
+      <p>Información actualizada desde el registro académico.</p>
+    </div>
+    @if (!cargando && !error) {
+      <span class="contador">{{ estudiantes.length }} registrados</span>
+    }
+  </div>
+
+  @if (cargando) {
+    <div class="estado" role="status">
+      <span class="cargador" aria-hidden="true"></span>
+      Cargando estudiantes...
+    </div>
+  } @else if (error) {
+    <div class="estado error" role="alert">
+      <span aria-hidden="true">!</span>
+      {{ error }}. Verifica que json-server esté activo en el puerto 3000.
+    </div>
+  } @else if (estudiantes.length === 0) {
+    <div class="estado">Aún no hay estudiantes registrados.</div>
+  } @else {
+    <div class="cuadricula-estudiantes">
+      @for (estudiante of estudiantes; track estudiante.id) {
+        <article class="tarjeta">
+          <div class="avatar" aria-hidden="true">{{ estudiante.nombre.charAt(0) }}</div>
+          <div class="contenido-tarjeta">
+            <span class="id-estudiante">Estudiante #{{ estudiante.id }}</span>
+            <h3>{{ estudiante.nombre }}</h3>
+            <p class="carrera">{{ estudiante.carrera }}</p>
+            <div class="edad">
+              <span>Edad</span>
+              <strong>{{ estudiante.edad }} años</strong>
+            </div>
+          </div>
+        </article>
+      }
+    </div>
+  }
+</section>

@@ -1,0 +1,22 @@
+{
+  "estudiantes": [
+    {
+      "id": 1,
+      "nombre": "María",
+      "edad": 20,
+      "carrera": "Desarrollo de Software"
+    },
+    {
+      "id": 2,
+      "nombre": "Carlos",
+      "edad": 22,
+      "carrera": "Diseño Gráfico"
+    },
+    {
+      "id": 3,
+      "nombre": "Ana",
+      "edad": 19,
+      "carrera": "Administración"
+    }
+  ]
+}

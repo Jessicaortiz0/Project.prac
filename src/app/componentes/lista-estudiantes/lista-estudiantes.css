@@ -1,0 +1,96 @@
+.panel {
+  padding: clamp(20px, 4vw, 38px);
+  border: 1px solid #e6e8f2;
+  border-radius: 24px;
+  background: #fff;
+  box-shadow: 0 18px 60px rgb(35 47 84 / 8%);
+}
+
+.cabecera-lista {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 20px;
+  padding-bottom: 25px;
+  border-bottom: 1px solid #edf0f7;
+}
+
+h2, h3, p { margin: 0; }
+
+h2 { color: #1c2342; font-size: 1.35rem; letter-spacing: -0.025em; }
+
+.cabecera-lista p { margin-top: 7px; color: #7a829b; font-size: 0.92rem; }
+
+.contador {
+  flex: none;
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: #eeefff;
+  color: #5153bb;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.cuadricula-estudiantes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+  gap: 16px;
+  margin-top: 26px;
+}
+
+.tarjeta {
+  display: flex;
+  gap: 14px;
+  min-width: 0;
+  padding: 20px;
+  border: 1px solid #e9ebf3;
+  border-radius: 18px;
+  background: linear-gradient(145deg, #fff, #f9faff);
+  transition: transform 180ms ease, box-shadow 180ms ease;
+}
+
+.tarjeta:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgb(60 72 117 / 12%); }
+
+.avatar {
+  display: grid;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #6668dc, #8b5edb);
+  color: #fff;
+  font-weight: 800;
+}
+
+.contenido-tarjeta { min-width: 0; flex: 1; }
+.id-estudiante { color: #8a91a8; font-size: 0.75rem; font-weight: 700; }
+h3 { margin-top: 4px; overflow: hidden; color: #202744; font-size: 1.05rem; text-overflow: ellipsis; white-space: nowrap; }
+.carrera { margin-top: 5px; color: #676f88; font-size: 0.88rem; }
+
+.edad {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px solid #eceef5;
+  color: #848ba0;
+  font-size: 0.78rem;
+}
+.edad strong { color: #464e6e; font-size: 0.88rem; }
+
+.estado {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  min-height: 150px;
+  color: #69718a;
+  text-align: center;
+}
+.estado.error { color: #a43d52; }
+.cargador { width: 18px; height: 18px; border: 2px solid #dfe1f7; border-top-color: #5e60cf; border-radius: 50%; animation: giro 700ms linear infinite; }
+@keyframes giro { to { transform: rotate(360deg); } }
+
+@media (max-width: 520px) { .cabecera-lista { flex-direction: column; } .contador { margin-top: -10px; } }

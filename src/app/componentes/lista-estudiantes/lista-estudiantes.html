@@ -4,30 +4,84 @@
       <h2 id="titulo-lista">Lista de estudiantes</h2>
       <p>Información actualizada desde el registro académico.</p>
     </div>
-    @if (!cargando && !error) {
-      <span class="contador">{{ estudiantes.length }} registrados</span>
+    @if (!cargando() && !error()) {
+      <span class="contador">{{ estudiantes().length }} registrados</span>
     }
   </div>
 
-  @if (cargando) {
+  <form class="formulario" (ngSubmit)="agregarEstudiante()">
+    <div class="titulo-formulario">
+      <h3>Registrar estudiante</h3>
+      <p>Completa los datos para añadirlo a la base de datos.</p>
+    </div>
+    <label>
+      Nombre completo
+      <input
+        type="text"
+        name="nombre"
+        [ngModel]="nombreNuevo()"
+        (ngModelChange)="nombreNuevo.set($event)"
+        placeholder="Ej. Juan Perez"
+        required
+      />
+    </label>
+    <label>
+      Edad
+      <input
+        type="number"
+        name="edad"
+        [ngModel]="edadNueva()"
+        (ngModelChange)="edadNueva.set($event)"
+        min="16"
+        max="100"
+        placeholder="Ej. 20"
+        required
+      />
+    </label>
+    <label>
+      Carrera
+      <select
+        name="carrera"
+        [ngModel]="carreraNueva()"
+        (ngModelChange)="carreraNueva.set($event)"
+        required
+      >
+        <option value="" disabled>Selecciona una carrera</option>
+        @for (carrera of carreras; track carrera) {
+          <option [value]="carrera">{{ carrera }}</option>
+        }
+      </select>
+    </label>
+    <button
+      type="submit"
+      [disabled]="guardando() || !nombreNuevo().trim() || !edadNueva() || !carreraNueva()"
+    >
+      {{ guardando() ? 'Guardando...' : 'Agregar estudiante' }}
+    </button>
+  </form>
+
+  @if (mensaje()) {
+    <p class="mensaje-exito" role="status">{{ mensaje() }}</p>
+  }
+
+  @if (cargando()) {
     <div class="estado" role="status">
       <span class="cargador" aria-hidden="true"></span>
       Cargando estudiantes...
     </div>
-  } @else if (error) {
+  } @else if (error()) {
     <div class="estado error" role="alert">
       <span aria-hidden="true">!</span>
-      {{ error }}. Verifica que json-server esté activo en el puerto 3000.
+      {{ error() }}. Verifica que json-server esté activo en el puerto 3002.
     </div>
-  } @else if (estudiantes.length === 0) {
+  } @else if (estudiantes().length === 0) {
     <div class="estado">Aún no hay estudiantes registrados.</div>
   } @else {
     <div class="cuadricula-estudiantes">
-      @for (estudiante of estudiantes; track estudiante.id) {
+      @for (estudiante of estudiantes(); track estudiante.id) {
         <article class="tarjeta">
           <div class="avatar" aria-hidden="true">{{ estudiante.nombre.charAt(0) }}</div>
           <div class="contenido-tarjeta">
-            <span class="id-estudiante">Estudiante #{{ estudiante.id }}</span>
             <h3>{{ estudiante.nombre }}</h3>
             <p class="carrera">{{ estudiante.carrera }}</p>
             <div class="edad">

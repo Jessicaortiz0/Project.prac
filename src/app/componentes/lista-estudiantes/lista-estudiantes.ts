@@ -1,33 +1,74 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Estudiante } from '../../modelos/estudiante.model';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { FormsModule } from '@angular/forms';
+import { Estudiante, NuevoEstudiante } from '../../modelos/estudiante.model';
 import { EstudianteService } from '../../servicios/estudiante';
 
 @Component({
   selector: 'app-lista-estudiantes',
-  imports: [],
+  imports: [FormsModule],
   templateUrl: './lista-estudiantes.html',
   styleUrl: './lista-estudiantes.css'
 })
 export class ListaEstudiantes implements OnInit {
   private estudianteService = inject(EstudianteService);
 
-  estudiantes: Estudiante[] = [
-    { id: 1, nombre: 'María', edad: 20, carrera: 'Desarrollo de Software' },
-    { id: 2, nombre: 'Carlos', edad: 22, carrera: 'Diseño Gráfico' },
-    { id: 3, nombre: 'Ana', edad: 19, carrera: 'Administración' }
+  readonly estudiantes = signal<Estudiante[]>([]);
+  readonly cargando = signal(true);
+  readonly error = signal('');
+  readonly guardando = signal(false);
+  readonly mensaje = signal('');
+
+  readonly nombreNuevo = signal('');
+  readonly edadNueva = signal<number | null>(null);
+  readonly carreraNueva = signal('');
+  readonly carreras = [
+    'Marketing',
+    'Turismo',
+    'Administración',
+    'Diseño Gráfico',
+    'Redes y Telecomunicaciones',
+    'Desarrollo de Software',
+    'Enfermería',
+    'Gastronomia'
+   
   ];
-  cargando = false;
-  error = '';
 
   ngOnInit(): void {
     this.estudianteService.obtenerEstudiantes().subscribe({
       next: (datos) => {
-        this.estudiantes = datos;
-        this.cargando = false;
+        this.estudiantes.set(datos);
+        this.cargando.set(false);
       },
       error: () => {
-        this.error = 'No fue posible conectar con la API';
-        this.cargando = false;
+        this.error.set('No fue posible conectar con la API');
+        this.cargando.set(false);
+      }
+    });
+  }
+
+  agregarEstudiante(): void {
+    const nombre = this.nombreNuevo().trim();
+    const edad = this.edadNueva();
+    const carrera = this.carreraNueva();
+
+    if (!nombre || !edad || !carrera || this.guardando()) return;
+
+    const estudiante: NuevoEstudiante = { nombre, edad, carrera };
+    this.guardando.set(true);
+    this.mensaje.set('');
+
+    this.estudianteService.agregarEstudiante(estudiante).subscribe({
+      next: (creado) => {
+        this.estudiantes.update((lista) => [...lista, creado]);
+        this.nombreNuevo.set('');
+        this.edadNueva.set(null);
+        this.carreraNueva.set('');
+        this.mensaje.set('Estudiante agregado correctamente.');
+        this.guardando.set(false);
+      },
+      error: () => {
+        this.error.set('No fue posible guardar el estudiante en la API');
+        this.guardando.set(false);
       }
     });
   }

@@ -31,6 +31,63 @@ h2 { color: #1c2342; font-size: 1.35rem; letter-spacing: -0.025em; }
   font-weight: 700;
 }
 
+.formulario {
+  display: grid;
+  grid-template-columns: 1.2fr 0.55fr 1fr auto;
+  align-items: end;
+  gap: 14px;
+  margin-top: 26px;
+  padding: 20px;
+  border-radius: 18px;
+  background: #f7f8ff;
+}
+
+.titulo-formulario { grid-column: 1 / -1; }
+.titulo-formulario h3 { color: #303963; font-size: 1rem; }
+.titulo-formulario p { margin-top: 4px; color: #7a829b; font-size: 0.84rem; }
+
+label { display: grid; gap: 6px; color: #505975; font-size: 0.78rem; font-weight: 700; }
+
+input, select {
+  width: 100%;
+  min-height: 42px;
+  padding: 0 11px;
+  border: 1px solid #dce0ed;
+  border-radius: 9px;
+  outline: none;
+  background: #fff;
+  color: #252d4b;
+  font: inherit;
+  font-weight: 400;
+}
+
+input:focus, select:focus { border-color: #6668dc; box-shadow: 0 0 0 3px rgb(102 104 220 / 15%); }
+
+button {
+  min-height: 42px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 9px;
+  background: #5e60cf;
+  color: #fff;
+  cursor: pointer;
+  font: inherit;
+  font-size: 0.85rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+button:hover:not(:disabled) { background: #4e50b9; }
+button:disabled { cursor: not-allowed; opacity: 0.55; }
+
+.mensaje-exito {
+  margin-top: 14px;
+  padding: 10px 12px;
+  border-radius: 9px;
+  background: #ecf9f2;
+  color: #207449;
+  font-size: 0.87rem;
+}
+
 .cuadricula-estudiantes {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
@@ -92,5 +149,10 @@ h3 { margin-top: 4px; overflow: hidden; color: #202744; font-size: 1.05rem; text
 .estado.error { color: #a43d52; }
 .cargador { width: 18px; height: 18px; border: 2px solid #dfe1f7; border-top-color: #5e60cf; border-radius: 50%; animation: giro 700ms linear infinite; }
 @keyframes giro { to { transform: rotate(360deg); } }
+
+@media (max-width: 760px) {
+  .formulario { grid-template-columns: 1fr; }
+  .titulo-formulario { grid-column: auto; }
+}
 
 @media (max-width: 520px) { .cabecera-lista { flex-direction: column; } .contador { margin-top: -10px; } }

@@ -1,26 +1,22 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { catchError, Observable, of, timeout } from 'rxjs';
-import { Estudiante } from '../modelos/estudiante.model';
+import { Observable } from 'rxjs';
+import { Estudiante, NuevoEstudiante } from '../modelos/estudiante.model';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EstudianteService {
   private http = inject(HttpClient);
-
-  private apiUrl = 'http://localhost:3000/estudiantes';
-
-  private estudiantesDeRespaldo: Estudiante[] = [
-    { id: 1, nombre: 'María', edad: 20, carrera: 'Desarrollo de Software' },
-    { id: 2, nombre: 'Carlos', edad: 22, carrera: 'Diseño Gráfico' },
-    { id: 3, nombre: 'Ana', edad: 19, carrera: 'Administración' }
-  ];
+  private apiUrl = 'http://localhost:3002/estudiantes';
 
   obtenerEstudiantes(): Observable<Estudiante[]> {
-    return this.http.get<Estudiante[]>(this.apiUrl).pipe(
-      timeout(4000),
-      catchError(() => of(this.estudiantesDeRespaldo))
-    );
+    return this.http.get<Estudiante[]>(this.apiUrl);
+  }
+
+  agregarEstudiante(estudiante: NuevoEstudiante): Observable<Estudiante> {
+    return this.http.post<Estudiante>(this.apiUrl, estudiante);
   }
 }
+
+export { Estudiante };

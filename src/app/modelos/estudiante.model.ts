@@ -6,3 +6,5 @@ export class Estudiante {
     public carrera: string
   ) {}
 }
+
+export type NuevoEstudiante = Omit<Estudiante, 'id'>;

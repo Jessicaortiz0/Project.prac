@@ -52,16 +52,119 @@
         }
       </select>
     </label>
+    <label class="campo-materias">
+      Materias
+      <select
+        name="materias"
+        [ngModel]="materiasNueva()"
+        (ngModelChange)="materiasNueva.set($event)"
+        required
+      >
+        <option value="" disabled>Elige una materia</option>
+        @for (materia of materiasDisponibles(); track materia) {
+          <option [value]="materia">{{ materia }}</option>
+        }
+      </select>
+      <small>Si no existe, créala en la sección inferior.</small>
+    </label>
     <button
       type="submit"
-      [disabled]="guardando() || !nombreNuevo().trim() || !edadNueva() || !carreraNueva()"
+      [disabled]="guardando() || !nombreNuevo().trim() || !edadNueva() || !carreraNueva() || !materiasNueva().trim()"
     >
       {{ guardando() ? 'Guardando...' : 'Agregar estudiante' }}
     </button>
   </form>
 
+  <section class="crear-materia" aria-labelledby="titulo-crear-materia">
+    <div>
+      <h3 id="titulo-crear-materia">Crear nueva materia</h3>
+      <p>Al guardarla aparecerá en las opciones de “Elige una materia”.</p>
+    </div>
+    <label>
+      Nombre de la materia
+      <input
+        type="text"
+        name="materiaCatalogo"
+        [ngModel]="nuevaMateriaCatalogo()"
+        (ngModelChange)="nuevaMateriaCatalogo.set($event)"
+        placeholder="Ej. Cálculo I"
+        (keyup.enter)="crearMateriaCatalogo()"
+      />
+    </label>
+    <button
+      type="button"
+      (click)="crearMateriaCatalogo()"
+      [disabled]="guardandoCatalogo() || !nuevaMateriaCatalogo().trim()"
+    >
+      {{ guardandoCatalogo() ? 'Guardando...' : 'Guardar materia' }}
+    </button>
+  </section>
+
   @if (mensaje()) {
     <p class="mensaje-exito" role="status">{{ mensaje() }}</p>
+  }
+
+  @if (errorMaterias() && !estudianteSeleccionado()) {
+    <p class="mensaje-error" role="alert">{{ errorMaterias() }}</p>
+  }
+
+  @if (estudianteSeleccionado(); as estudiante) {
+    <section class="gestion-materias" aria-labelledby="titulo-gestion-materias">
+      <div class="cabecera-gestion">
+        <div>
+          <span>Gestionar materias</span>
+          <h3 id="titulo-gestion-materias">{{ estudiante.nombre }}</h3>
+        </div>
+        <button type="button" class="cerrar-gestion" (click)="cerrarGestionMaterias()">Cerrar</button>
+      </div>
+
+      @if (estudiante.materias?.length) {
+        <div class="materias-editables">
+          @for (materia of estudiante.materias; track materia) {
+            <span>
+              {{ materia }}
+              <button
+                type="button"
+                (click)="quitarMateria(estudiante, materia)"
+                [disabled]="guardandoMaterias()"
+                [attr.aria-label]="'Quitar ' + materia"
+              >
+                ×
+              </button>
+            </span>
+          }
+        </div>
+      } @else {
+        <p class="sin-materias">Este estudiante aún no tiene materias asignadas.</p>
+      }
+
+      <div class="agregar-materia">
+        <label>
+          Nueva materia
+          <select
+            name="materiaNueva"
+            [ngModel]="materiaParaAgregar()"
+            (ngModelChange)="materiaParaAgregar.set($event)"
+          >
+            <option value="" disabled>Elige una materia</option>
+            @for (materia of materiasDisponibles(); track materia) {
+              <option [value]="materia">{{ materia }}</option>
+            }
+          </select>
+        </label>
+        <button
+          type="button"
+          (click)="agregarMateria(estudiante)"
+          [disabled]="guardandoMaterias() || !materiaParaAgregar().trim()"
+        >
+          {{ guardandoMaterias() ? 'Guardando...' : 'Añadir materia' }}
+        </button>
+      </div>
+
+      @if (errorMaterias()) {
+        <p class="mensaje-error" role="alert">{{ errorMaterias() }}</p>
+      }
+    </section>
   }
 
   @if (cargando()) {
@@ -79,17 +182,35 @@
   } @else {
     <div class="cuadricula-estudiantes">
       @for (estudiante of estudiantes(); track estudiante.id) {
-        <article class="tarjeta">
+        <button
+          type="button"
+          class="tarjeta tarjeta-seleccionable"
+          [class.seleccionada]="estudianteSeleccionado()?.id === estudiante.id"
+          (click)="seleccionarEstudiante(estudiante)"
+          [attr.aria-label]="'Gestionar materias de ' + estudiante.nombre"
+        >
           <div class="avatar" aria-hidden="true">{{ estudiante.nombre.charAt(0) }}</div>
           <div class="contenido-tarjeta">
             <h3>{{ estudiante.nombre }}</h3>
-            <p class="carrera">{{ estudiante.carrera }}</p>
+            <p class="carrera"><span>Carrera</span>{{ estudiante.carrera }}</p>
             <div class="edad">
               <span>Edad</span>
               <strong>{{ estudiante.edad }} años</strong>
             </div>
+            <div class="materias">
+              <span>Materias</span>
+              @if (estudiante.materias?.length) {
+                <div class="etiquetas-materias">
+                  @for (materia of estudiante.materias; track materia) {
+                    <span>{{ materia }}</span>
+                  }
+                </div>
+              } @else {
+                <p>Sin materias asignadas.</p>
+              }
+            </div>
           </div>
-        </article>
+        </button>
       }
     </div>
   }

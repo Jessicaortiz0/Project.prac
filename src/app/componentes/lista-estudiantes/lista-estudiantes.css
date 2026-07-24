@@ -33,7 +33,7 @@ h2 { color: #1c2342; font-size: 1.35rem; letter-spacing: -0.025em; }
 
 .formulario {
   display: grid;
-  grid-template-columns: 1.2fr 0.55fr 1fr auto;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
   align-items: end;
   gap: 14px;
   margin-top: 26px;
@@ -43,10 +43,12 @@ h2 { color: #1c2342; font-size: 1.35rem; letter-spacing: -0.025em; }
 }
 
 .titulo-formulario { grid-column: 1 / -1; }
+.formulario > button { grid-column: 1 / -1; justify-self: end; }
 .titulo-formulario h3 { color: #303963; font-size: 1rem; }
 .titulo-formulario p { margin-top: 4px; color: #7a829b; font-size: 0.84rem; }
 
 label { display: grid; gap: 6px; color: #505975; font-size: 0.78rem; font-weight: 700; }
+.campo-materias small { color: #858da3; font-size: 0.72rem; font-weight: 400; }
 
 input, select {
   width: 100%;
@@ -88,6 +90,44 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
   font-size: 0.87rem;
 }
 
+.crear-materia {
+  display: grid;
+  grid-template-columns: 1fr minmax(220px, 1.2fr) auto;
+  align-items: end;
+  gap: 14px;
+  margin-top: 18px;
+  padding: 18px 20px;
+  border: 1px dashed #cfd2eb;
+  border-radius: 16px;
+  background: #fcfcff;
+}
+.crear-materia h3 { color: #303963; font-size: 0.95rem; }
+.crear-materia p { margin-top: 4px; color: #7a829b; font-size: 0.8rem; }
+
+.gestion-materias {
+  margin-top: 18px;
+  padding: 20px;
+  border: 1px solid #d9daf7;
+  border-radius: 18px;
+  background: #f8f8ff;
+}
+
+.cabecera-gestion { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
+.cabecera-gestion > div > span { color: #6264c6; font-size: 0.73rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.cabecera-gestion h3 { margin-top: 3px; color: #2e3761; }
+.cerrar-gestion { min-height: 34px; padding: 0 11px; background: #e7e8f7; color: #515375; }
+.cerrar-gestion:hover:not(:disabled) { background: #dcdef2; }
+
+.materias-editables { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 16px; }
+.materias-editables > span { display: inline-flex; align-items: center; gap: 5px; padding: 4px 5px 4px 9px; border-radius: 999px; background: #e6e7ff; color: #5053ba; font-size: 0.8rem; font-weight: 700; }
+.materias-editables button { display: grid; width: 21px; min-height: 21px; padding: 0; place-items: center; border-radius: 50%; background: #cfd1f9; color: #4b4eaa; font-size: 1rem; line-height: 1; }
+.materias-editables button:hover:not(:disabled) { background: #bebfed; }
+.sin-materias { margin-top: 15px; color: #777f98; font-size: 0.86rem; }
+
+.agregar-materia { display: flex; align-items: end; gap: 10px; margin-top: 18px; }
+.agregar-materia label { flex: 1; }
+.mensaje-error { margin: 12px 0 0; color: #ad3e52; font-size: 0.84rem; }
+
 .cuadricula-estudiantes {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
@@ -107,6 +147,8 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 }
 
 .tarjeta:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgb(60 72 117 / 12%); }
+.tarjeta-seleccionable { width: 100%; min-height: 0; cursor: pointer; text-align: left; }
+.tarjeta.seleccionada { border-color: #7476d9; box-shadow: 0 0 0 3px rgb(102 104 220 / 14%); }
 
 .avatar {
   display: grid;
@@ -123,7 +165,8 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 .contenido-tarjeta { min-width: 0; flex: 1; }
 .id-estudiante { color: #8a91a8; font-size: 0.75rem; font-weight: 700; }
 h3 { margin-top: 4px; overflow: hidden; color: #202744; font-size: 1.05rem; text-overflow: ellipsis; white-space: nowrap; }
-.carrera { margin-top: 5px; color: #676f88; font-size: 0.88rem; }
+.carrera { display: grid; gap: 2px; margin-top: 5px; color: #676f88; font-size: 0.88rem; }
+.carrera span, .materias > span { color: #8a91a8; font-size: 0.71rem; font-weight: 800; text-transform: uppercase; }
 
 .edad {
   display: flex;
@@ -136,6 +179,19 @@ h3 { margin-top: 4px; overflow: hidden; color: #202744; font-size: 1.05rem; text
   font-size: 0.78rem;
 }
 .edad strong { color: #464e6e; font-size: 0.88rem; }
+
+.materias {
+  display: grid;
+  gap: 8px;
+  margin-top: 15px;
+  padding-top: 14px;
+  border-top: 1px solid #eceef5;
+}
+
+.materias p { color: #858da0; font-size: 0.8rem; }
+
+.etiquetas-materias { display: flex; flex-wrap: wrap; gap: 6px; }
+.etiquetas-materias span { padding: 4px 7px; border-radius: 999px; background: #eeefff; color: #5658b8; font-size: 0.72rem; font-weight: 700; }
 
 .estado {
   display: flex;
@@ -153,6 +209,8 @@ h3 { margin-top: 4px; overflow: hidden; color: #202744; font-size: 1.05rem; text
 @media (max-width: 760px) {
   .formulario { grid-template-columns: 1fr; }
   .titulo-formulario { grid-column: auto; }
+  .agregar-materia { align-items: stretch; flex-direction: column; }
+  .crear-materia { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 520px) { .cabecera-lista { flex-direction: column; } .contador { margin-top: -10px; } }

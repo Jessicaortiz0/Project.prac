@@ -33,7 +33,7 @@ h2 { color: #1c2342; font-size: 1.35rem; letter-spacing: -0.025em; }
 
 .formulario {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
+  grid-template-columns: 1fr;
   align-items: end;
   gap: 14px;
   margin-top: 26px;
@@ -48,7 +48,20 @@ h2 { color: #1c2342; font-size: 1.35rem; letter-spacing: -0.025em; }
 .titulo-formulario p { margin-top: 4px; color: #7a829b; font-size: 0.84rem; }
 
 label { display: grid; gap: 6px; color: #505975; font-size: 0.78rem; font-weight: 700; }
-.campo-materias small { color: #858da3; font-size: 0.72rem; font-weight: 400; }
+label, input, select { min-width: 0; }
+.campo-materias-registro { display: grid; gap: 10px; }
+.etiqueta-campo { color: #505975; font-size: 0.78rem; font-weight: 700; }
+.campo-materias-registro small { color: #858da3; font-size: 0.72rem; font-weight: 400; }
+.selector-materias-circular { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 8px; max-height: 230px; overflow-y: auto; padding: 4px; }
+.opcion-materia { display: flex; align-items: center; gap: 8px; padding: 8px; border: 1px solid #e1e3ef; border-radius: 9px; background: #fff; color: #5a637d; cursor: pointer; font-size: 0.78rem; font-weight: 600; overflow-wrap: anywhere; }
+.opcion-materia.seleccionada { border-color: #7779dc; background: #f0f0ff; color: #4f51b4; }
+.opcion-materia input[type='checkbox'] { appearance: none; flex: none; width: 18px; min-height: 18px; margin: 0; padding: 0; border: 2px solid #aeb3cb; border-radius: 50%; background: #fff; }
+.opcion-materia input[type='checkbox']:checked { border-color: #5f61ce; background: radial-gradient(circle, #5f61ce 43%, #fff 47%); }
+.opcion-materia input[type='checkbox']:focus-visible { outline: 3px solid rgb(95 97 206 / 25%); outline-offset: 2px; }
+.materias-registro-seleccionadas { display: flex; flex-wrap: wrap; gap: 7px; }
+.materias-registro-seleccionadas > span { display: inline-flex; align-items: center; gap: 5px; padding: 4px 5px 4px 9px; border-radius: 999px; background: #e6e7ff; color: #5053ba; font-size: 0.8rem; font-weight: 700; overflow-wrap: anywhere; }
+.materias-registro-seleccionadas button { display: grid; width: 21px; min-height: 21px; padding: 0; place-items: center; border-radius: 50%; background: #cfd1f9; color: #4b4eaa; font-size: 1rem; line-height: 1; }
+.materias-registro-seleccionadas button:hover:not(:disabled) { background: #bebfed; }
 
 input, select {
   width: 100%;
@@ -104,17 +117,28 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 .crear-materia h3 { color: #303963; font-size: 0.95rem; }
 .crear-materia p { margin-top: 4px; color: #7a829b; font-size: 0.8rem; }
 
+.catalogo-materias { margin-top: 20px; padding: 20px; border: 1px solid #e5e7f2; border-radius: 18px; background: #fcfcff; }
+.catalogo-materias h3 { white-space: normal; }
+.catalogo-materias p { margin: 5px 0 15px; color: #737b94; font-size: 0.87rem; }
+
 .gestion-materias {
   margin-top: 18px;
-  padding: 20px;
-  border: 1px solid #d9daf7;
-  border-radius: 18px;
-  background: #f8f8ff;
+  padding: clamp(24px, 4vw, 36px);
+  border: 1px solid #cfd1f2;
+  border-radius: 24px;
+  background: linear-gradient(145deg, #f8f8ff, #f0f2ff);
+  box-shadow: 0 18px 38px rgb(72 79 148 / 12%);
 }
 
 .cabecera-gestion { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; }
-.cabecera-gestion > div > span { color: #6264c6; font-size: 0.73rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
+.estudiante-ampliado { display: flex; align-items: center; gap: 17px; min-width: 0; }
+.cabecera-gestion .estudiante-ampliado > div > span { color: #6264c6; font-size: 0.73rem; font-weight: 800; letter-spacing: 0.06em; text-transform: uppercase; }
 .cabecera-gestion h3 { margin-top: 3px; color: #2e3761; }
+.avatar-grande { width: 64px; height: 64px; border-radius: 19px; font-size: 1.35rem; }
+.carrera-ampliada { margin-top: 4px; color: #606987; font-size: 0.9rem; overflow-wrap: anywhere; }
+.resumen-estudiante { display: flex; align-items: baseline; gap: 8px; margin-top: 11px; color: #7e86a0; font-size: 0.77rem; }
+.resumen-estudiante strong { color: #3f486a; font-size: 0.9rem; }
+.titulo-materias-gestion { margin: 25px 0 0; color: #3b456c; font-size: 0.9rem; }
 .cerrar-gestion { min-height: 34px; padding: 0 11px; background: #e7e8f7; color: #515375; }
 .cerrar-gestion:hover:not(:disabled) { background: #dcdef2; }
 
@@ -127,6 +151,14 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 .agregar-materia { display: flex; align-items: end; gap: 10px; margin-top: 18px; }
 .agregar-materia label { flex: 1; }
 .mensaje-error { margin: 12px 0 0; color: #ad3e52; font-size: 0.84rem; }
+
+.acciones-peligrosas { margin-top: 25px; padding-top: 18px; border-top: 1px solid #dedff0; }
+.acciones-peligrosas p { margin-bottom: 10px; color: #873b4b; font-size: 0.86rem; }
+.acciones-peligrosas > div { display: flex; flex-wrap: wrap; gap: 9px; }
+.boton-eliminar { background: #bd3e57; }
+.boton-eliminar:hover:not(:disabled) { background: #a83249; }
+.boton-cancelar { background: #e7e8f2; color: #515a75; }
+.boton-cancelar:hover:not(:disabled) { background: #dcdfea; }
 
 .cuadricula-estudiantes {
   display: grid;
@@ -147,7 +179,9 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 }
 
 .tarjeta:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgb(60 72 117 / 12%); }
-.tarjeta-seleccionable { width: 100%; min-height: 0; cursor: pointer; text-align: left; }
+.tarjeta-seleccionable { width: 100%; min-height: 0; cursor: pointer; text-align: left; white-space: normal; }
+.tarjeta-seleccionable:disabled { cursor: default; opacity: 1; }
+.tarjeta-seleccionable:disabled:hover { transform: none; box-shadow: none; }
 .tarjeta.seleccionada { border-color: #7476d9; box-shadow: 0 0 0 3px rgb(102 104 220 / 14%); }
 
 .avatar {
@@ -164,8 +198,8 @@ button:disabled { cursor: not-allowed; opacity: 0.55; }
 
 .contenido-tarjeta { min-width: 0; flex: 1; }
 .id-estudiante { color: #8a91a8; font-size: 0.75rem; font-weight: 700; }
-h3 { margin-top: 4px; overflow: hidden; color: #202744; font-size: 1.05rem; text-overflow: ellipsis; white-space: nowrap; }
-.carrera { display: grid; gap: 2px; margin-top: 5px; color: #676f88; font-size: 0.88rem; }
+h3 { margin-top: 4px; color: #202744; font-size: 1.05rem; overflow-wrap: anywhere; white-space: normal; }
+.carrera { display: grid; gap: 2px; margin-top: 5px; color: #676f88; font-size: 0.88rem; overflow-wrap: anywhere; }
 .carrera span, .materias > span { color: #8a91a8; font-size: 0.71rem; font-weight: 800; text-transform: uppercase; }
 
 .edad {
@@ -180,6 +214,9 @@ h3 { margin-top: 4px; overflow: hidden; color: #202744; font-size: 1.05rem; text
 }
 .edad strong { color: #464e6e; font-size: 0.88rem; }
 
+.jornada { display: flex; align-items: baseline; justify-content: space-between; margin-top: 11px; color: #848ba0; font-size: 0.78rem; }
+.jornada strong { color: #464e6e; font-size: 0.88rem; overflow-wrap: anywhere; text-align: right; }
+
 .materias {
   display: grid;
   gap: 8px;
@@ -188,10 +225,10 @@ h3 { margin-top: 4px; overflow: hidden; color: #202744; font-size: 1.05rem; text
   border-top: 1px solid #eceef5;
 }
 
-.materias p { color: #858da0; font-size: 0.8rem; }
+.materias p { color: #858da0; font-size: 0.8rem; overflow-wrap: anywhere; }
 
 .etiquetas-materias { display: flex; flex-wrap: wrap; gap: 6px; }
-.etiquetas-materias span { padding: 4px 7px; border-radius: 999px; background: #eeefff; color: #5658b8; font-size: 0.72rem; font-weight: 700; }
+.etiquetas-materias span { max-width: 100%; padding: 4px 7px; border-radius: 999px; background: #eeefff; color: #5658b8; font-size: 0.72rem; font-weight: 700; overflow-wrap: anywhere; }
 
 .estado {
   display: flex;
@@ -213,4 +250,10 @@ h3 { margin-top: 4px; overflow: hidden; color: #202744; font-size: 1.05rem; text
   .crear-materia { grid-template-columns: 1fr; }
 }
 
-@media (max-width: 520px) { .cabecera-lista { flex-direction: column; } .contador { margin-top: -10px; } }
+@media (max-width: 520px) {
+  .cabecera-lista { flex-direction: column; }
+  .contador { margin-top: -10px; }
+  .cabecera-gestion { flex-direction: column; }
+  .cerrar-gestion { align-self: flex-end; margin-top: -48px; }
+  .estudiante-ampliado { padding-right: 65px; }
+}

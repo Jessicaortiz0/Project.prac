@@ -25,6 +25,10 @@ export class EstudianteService {
     return this.http.patch<Estudiante>(`${this.apiUrl}/${encodeURIComponent(String(id))}`, cambios);
   }
 
+  eliminarEstudiante(id: Estudiante['id']): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${encodeURIComponent(String(id))}`);
+  }
+
   obtenerCatalogoMaterias(): Observable<MateriaCatalogo[]> {
     return this.http.get<MateriaCatalogo[]>('http://localhost:3002/catalogoMaterias');
   }

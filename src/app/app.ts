@@ -1,12 +1,10 @@
 import { Component } from '@angular/core';
-import { ListaEstudiantes } from './componentes/lista-estudiantes/lista-estudiantes';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-root',
-  imports: [ListaEstudiantes],
+  imports: [RouterLink, RouterLinkActive, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
-  titulo = 'Mi aplicación de prueba';
-}
+export class App {}

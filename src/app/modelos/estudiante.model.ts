@@ -4,7 +4,9 @@ export class Estudiante {
     public nombre: string,
     public edad: number,
     public carrera: string,
-    public materias?: string[]
+    public materias?: string[],
+    public numero?: number,
+    public jornada?: string
   ) {}
 }
 

@@ -1,0 +1,26 @@
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-carreras-vista',
+  template: `
+    <section class="panel" aria-labelledby="titulo-carreras">
+      <h2 id="titulo-carreras">Carreras disponibles</h2>
+      <p>Estas son las carreras que se pueden seleccionar al registrar un estudiante.</p>
+      <div class="lista-carreras">
+        @for (carrera of carreras; track carrera) { <span>{{ carrera }}</span> }
+      </div>
+    </section>
+  `,
+  styles: `
+    .panel { padding: clamp(20px, 4vw, 38px); border: 1px solid #e6e8f2; border-radius: 24px; background: #fff; box-shadow: 0 18px 60px rgb(35 47 84 / 8%); }
+    h2, p { margin: 0; } h2 { color: #1c2342; font-size: 1.35rem; } p { margin-top: 8px; color: #747c96; }
+    .lista-carreras { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 12px; margin-top: 24px; }
+    .lista-carreras span { padding: 14px; border: 1px solid #e4e6f1; border-radius: 12px; background: #fafaff; color: #4b5375; font-weight: 700; overflow-wrap: anywhere; }
+  `
+})
+export class CarrerasVista {
+  readonly carreras = [
+    'Marketing', 'Turismo', 'Administración', 'Diseño Gráfico',
+    'Redes y Telecomunicaciones', 'Desarrollo de Software', 'Enfermería', 'Gastronomía'
+  ];
+}

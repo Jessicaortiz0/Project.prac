@@ -1,60 +1,34 @@
 {
   "estudiantes": [
     {
-      "id": "1",
-      "nombre": "María",
-      "edad": 20,
-      "carrera": "Desarrollo de Software",
-      "materias": [
-        "Marketing Digital",
-        "Emprendimiento e Innovación"
-      ]
-    },
-    {
-      "id": "2",
-      "nombre": "Carlos",
-      "edad": 22,
-      "carrera": "Diseño Gráfico",
-      "materias": []
-    },
-    {
-      "id": "3",
-      "nombre": "Ana",
-      "edad": 19,
-      "carrera": "Administración"
-    },
-    {
-      "id": "4",
-      "nombre": "Josue",
-      "edad": 35,
-      "carrera": "Marketing"
-    },
-    {
-      "id": "5",
-      "nombre": "Damian",
-      "edad": 27,
-      "carrera": "Turismo "
-    },
-    {
       "nombre": "Jessica Mendez",
       "edad": 18,
       "carrera": "Redes y Telecomunicaciones",
-      "id": "4crVdMWe6e4"
+      "id": "4crVdMWe6e4",
+      "numero": 1,
+      "materias": []
     },
     {
       "nombre": "Pablo Mora",
       "edad": 19,
       "carrera": "Diseño Gráfico",
-      "id": "048KoDeHKRc"
+      "id": "048KoDeHKRc",
+      "numero": 2,
+      "materias": [
+        "Redes de Datos",
+        "Contabilidad y Finanzas",
+        "Gestión de Destinos Turísticos"
+      ]
     },
     {
-      "nombre": "Jessenia Ortega",
+      "nombre": "Juan Peralta",
       "edad": 25,
-      "carrera": "Turismo",
+      "carrera": "Diseño Gráfico",
       "materias": [
-        "Ética Profesional"
+        "Diseño de Identidad Visual"
       ],
-      "id": "XuqUjoBCYP8"
+      "numero": 3,
+      "id": "hPf9zz7KpnA"
     }
   ],
   "catalogoMaterias": [

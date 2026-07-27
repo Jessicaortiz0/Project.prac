@@ -1,9 +1,18 @@
 <main class="pagina">
-  <section class="encabezado">
-    <span class="etiqueta">Portal académico</span>
-    <h1>Estudiantes</h1>
-    <p>Consulta la información de los estudiantes registrados.</p>
-  </section>
+  <header class="encabezado">
+    <div>
+      <span class="etiqueta">Portal académico</span>
+      <h1>Gestión académica</h1>
+      <p>Administra estudiantes, materias y carreras desde un solo lugar.</p>
+    </div>
+    <nav class="navegacion" aria-label="Secciones principales">
+      <a routerLink="/" routerLinkActive="activo" [routerLinkActiveOptions]="{ exact: true }">Inicio</a>
+      <a routerLink="/estudiantes" routerLinkActive="activo">Estudiantes</a>
+      <a routerLink="/inscripciones" routerLinkActive="activo">Registro</a>
+      <a routerLink="/materias" routerLinkActive="activo">Materias</a>
+      <a routerLink="/carreras" routerLinkActive="activo">Carreras</a>
+    </nav>
+  </header>
 
-  <app-lista-estudiantes></app-lista-estudiantes>
+  <router-outlet></router-outlet>
 </main>

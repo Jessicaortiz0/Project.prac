@@ -1,0 +1,11 @@
+<section class="panel"><div class="cabecera"><div><h2>Estudiantes inscritos</h2><p>Selecciona un estudiante para gestionar sus materias.</p></div><span>{{ estudiantes().length }} registrados</span></div>
+@if (mensaje()) { <p class="exito">{{ mensaje() }}</p> } @if (error()) { <p class="error">{{ error() }}</p> }
+@if (seleccionado(); as estudiante) {
+  <section class="ficha"><div class="ficha-cabecera"><div><span>Ficha del estudiante</span><h3>{{ estudiante.nombre }}</h3><p>{{ estudiante.carrera }} · {{ estudiante.jornada ?? 'Jornada no especificada' }}</p></div><button class="secundario" (click)="cerrar()">Cerrar</button></div>
+  <h4>Materias asignadas</h4>@if (estudiante.materias?.length) { <div class="etiquetas">@for (materia of estudiante.materias; track materia) { <span>{{ materia }}<button (click)="quitarMateria(estudiante,materia)" [disabled]="guardando()" [attr.aria-label]="'Quitar '+materia">×</button></span> }</div> } @else { <p class="vacio">Sin materias asignadas.</p> }
+  <div class="agregar"><label>Nueva materia<select name="materia" [ngModel]="materiaNueva()" (ngModelChange)="materiaNueva.set($event)"><option value="" disabled>Elige una materia</option>@for (materia of materiasDisponibles(); track materia) { <option [value]="materia">{{ materia }}</option> }</select></label><button (click)="agregarMateria(estudiante)" [disabled]="guardando() || !materiaNueva()">Añadir materia</button></div>
+  <div class="peligro">@if (confirmarEliminacion()) { <p>¿Eliminar permanentemente a {{ estudiante.nombre }}?</p><button class="eliminar" (click)="eliminar(estudiante)" [disabled]="guardando()">{{ guardando() ? 'Eliminando...' : 'Sí, eliminar' }}</button><button class="secundario" (click)="confirmarEliminacion.set(false)">Cancelar</button> } @else { <button class="eliminar" (click)="confirmarEliminacion.set(true)">Eliminar estudiante</button> }</div>
+  </section>
+}
+@if (cargando()) { <p class="estado">Cargando estudiantes...</p> } @else if (!estudiantes().length) { <p class="estado">Aún no hay estudiantes registrados.</p> } @else { <div class="cuadricula">@for (estudiante of estudiantes(); track estudiante.id; let indice=$index) { <app-student-card [estudiante]="estudiante" [numero]="indice+1" [editable]="true" (seleccionar)="seleccionar($event)" /> }</div> }
+</section>

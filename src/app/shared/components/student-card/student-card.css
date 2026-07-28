@@ -1,0 +1,17 @@
+:host { display: block; min-width: 0; }
+.tarjeta { display: flex; gap: 14px; min-width: 0; height: 100%; padding: 20px; border: 1px solid #e9ebf3; border-radius: 18px; background: linear-gradient(145deg, #fff, #f9faff); text-align: left; }
+.tarjeta-activa { cursor: pointer; transition: transform 180ms ease, box-shadow 180ms ease; }
+.tarjeta-activa:hover { transform: translateY(-3px); box-shadow: 0 12px 25px rgb(60 72 117 / 12%); }
+.tarjeta-activa:focus-visible { outline: 3px solid rgb(102 104 220 / 32%); outline-offset: 3px; }
+.avatar { display: grid; flex: none; width: 44px; height: 44px; place-items: center; border-radius: 14px; background: linear-gradient(135deg, #6668dc, #8b5edb); color: #fff; font-weight: 800; }
+.contenido { min-width: 0; flex: 1; }
+.numero { color: #8a91a8; font-size: .75rem; font-weight: 700; }
+h3, p { margin: 0; } h3 { margin-top: 4px; color: #202744; font-size: 1.05rem; overflow-wrap: anywhere; }
+.carrera { display: grid; gap: 2px; margin-top: 5px; color: #676f88; font-size: .88rem; overflow-wrap: anywhere; }
+.carrera span, .dato > span, .materias > span { color: #8a91a8; font-size: .71rem; font-weight: 800; text-transform: uppercase; }
+.dato { display: flex; justify-content: space-between; gap: 12px; margin-top: 12px; color: #848ba0; font-size: .78rem; }
+.dato strong { color: #464e6e; font-size: .88rem; overflow-wrap: anywhere; text-align: right; }
+.materias { display: grid; gap: 8px; margin-top: 15px; padding-top: 14px; border-top: 1px solid #eceef5; }
+.materias p { color: #858da0; font-size: .8rem; }
+.etiquetas { display: flex; flex-wrap: wrap; gap: 6px; }
+.etiquetas span { max-width: 100%; padding: 4px 7px; border-radius: 999px; background: #eeefff; color: #5658b8; font-size: .72rem; font-weight: 700; overflow-wrap: anywhere; }

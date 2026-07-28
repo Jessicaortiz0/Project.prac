@@ -1,0 +1,22 @@
+<article
+  class="tarjeta"
+  [class.tarjeta-activa]="editable()"
+  [attr.role]="editable() ? 'button' : null"
+  [attr.tabindex]="editable() ? 0 : null"
+  (click)="abrirFicha()"
+  (keydown.enter)="abrirFicha()"
+>
+  <div class="avatar" aria-hidden="true">{{ estudiante().nombre.charAt(0) }}</div>
+  <div class="contenido">
+    <span class="numero">Estudiante #{{ estudiante().numero ?? numero() }}</span>
+    <h3>{{ estudiante().nombre }}</h3>
+    <p class="carrera"><span>Carrera</span>{{ estudiante().carrera }}</p>
+    <div class="dato"><span>Edad</span><strong>{{ estudiante().edad }} años</strong></div>
+    <div class="dato"><span>Jornada</span><strong>{{ estudiante().jornada ?? 'No especificada' }}</strong></div>
+    <div class="materias"><span>Materias</span>
+      @if (estudiante().materias?.length) {
+        <div class="etiquetas">@for (materia of estudiante().materias; track materia) { <span>{{ materia }}</span> }</div>
+      } @else { <p>Sin materias asignadas.</p> }
+    </div>
+  </div>
+</article>

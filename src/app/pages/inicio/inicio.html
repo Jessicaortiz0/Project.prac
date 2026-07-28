@@ -1,0 +1,7 @@
+<section class="panel" aria-labelledby="titulo-inicio">
+  <div class="cabecera"><div><h2 id="titulo-inicio">Lista de estudiantes</h2><p>Información actualizada desde el registro académico.</p></div><span>{{ estudiantes().length }} registrados</span></div>
+  @if (cargando()) { <p class="estado">Cargando estudiantes...</p> }
+  @else if (error()) { <p class="estado error">{{ error() }}</p> }
+  @else if (!estudiantes().length) { <p class="estado">Aún no hay estudiantes registrados.</p> }
+  @else { <div class="cuadricula">@for (estudiante of estudiantes(); track estudiante.id; let indice = $index) { <app-student-card [estudiante]="estudiante" [numero]="indice + 1" /> }</div> }
+</section>

@@ -1,0 +1,11 @@
+<section class="panel"><div class="cabecera"><h2>Registro de estudiante</h2><p>Completa los datos para añadirlo a la base de datos.</p></div>
+<form (ngSubmit)="registrar()">
+  <label>Nombre completo<input name="nombre" [ngModel]="nombre()" (ngModelChange)="nombre.set($event)" placeholder="Ej. Juan Pérez" required /></label>
+  <label>Edad<input type="number" name="edad" [ngModel]="edad()" (ngModelChange)="edad.set($event)" min="16" max="100" required /></label>
+  <label>Carrera<select name="carrera" [ngModel]="carrera()" (ngModelChange)="carrera.set($event)" required><option value="" disabled>Selecciona una carrera</option>@for (item of carreras; track item) { <option [value]="item">{{ item }}</option> }</select></label>
+  <label>Jornada<select name="jornada" [ngModel]="jornada()" (ngModelChange)="jornada.set($event)" required><option value="" disabled>Selecciona una jornada</option>@for (item of jornadas; track item) { <option [value]="item">{{ item }}</option> }</select></label>
+  <div class="materias"><span>Materias</span><div class="opciones">@for (materia of materiasDisponibles(); track materia) { <label [class.activa]="materias().includes(materia)"><input type="checkbox" [checked]="materias().includes(materia)" (change)="alternarMateria(materia)" /><span>{{ materia }}</span></label> }</div></div>
+  <button type="submit" [disabled]="guardando() || !nombre().trim() || !edad() || !carrera() || !jornada() || !materias().length">{{ guardando() ? 'Guardando...' : 'Registrar estudiante' }}</button>
+</form>
+@if (mensaje()) { <p class="exito">{{ mensaje() }}</p> } @if (error()) { <p class="error">{{ error() }}</p> }
+</section>

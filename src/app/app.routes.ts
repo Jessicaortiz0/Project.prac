@@ -1,15 +1,15 @@
 import { Routes } from '@angular/router';
-import { CarrerasVista } from './componentes/carreras-vista/carreras-vista';
-import { EstudiantesVista } from './componentes/estudiantes-vista/estudiantes-vista';
-import { InicioVista } from './componentes/inicio-vista/inicio-vista';
-import { InscripcionesVista } from './componentes/inscripciones-vista/inscripciones-vista';
-import { MateriasVista } from './componentes/materias-vista/materias-vista';
+import { CarrerasPage } from './pages/carreras/carreras';
+import { EstudiantesPage } from './pages/estudiantes/estudiantes';
+import { InicioPage } from './pages/inicio/inicio';
+import { InscripcionesPage } from './pages/inscripciones/inscripciones';
+import { MateriasPage } from './pages/materias/materias';
 
 export const routes: Routes = [
-  { path: '', component: InicioVista, title: 'Inicio | Portal académico' },
-  { path: 'estudiantes', component: EstudiantesVista, title: 'Estudiantes | Portal académico' },
-  { path: 'inscripciones', component: InscripcionesVista, title: 'Registro | Portal académico' },
-  { path: 'materias', component: MateriasVista, title: 'Materias | Portal académico' },
-  { path: 'carreras', component: CarrerasVista, title: 'Carreras | Portal académico' },
+  { path: '', component: InicioPage, title: 'Inicio | Portal académico' },
+  { path: 'estudiantes', component: EstudiantesPage, title: 'Estudiantes | Portal académico' },
+  { path: 'inscripciones', component: InscripcionesPage, title: 'Registro | Portal académico' },
+  { path: 'materias', component: MateriasPage, title: 'Materias | Portal académico' },
+  { path: 'carreras', component: CarrerasPage, title: 'Carreras | Portal académico' },
   { path: '**', redirectTo: '' }
 ];
